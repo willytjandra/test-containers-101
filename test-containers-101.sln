@@ -5,6 +5,10 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api", "src\Api\Api.csproj", "{B800D233-B508-41D0-A84B-E5C5ED7C7FBF}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{A0AEE4C6-78BA-4DB9-A317-7A5896C59950}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api.IntegrationTests", "tests\Api.IntegrationTests\Api.IntegrationTests.csproj", "{EBAEE0B6-54FC-4872-BC54-75A5F549DDFE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,8 +19,15 @@ Global
 		{B800D233-B508-41D0-A84B-E5C5ED7C7FBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B800D233-B508-41D0-A84B-E5C5ED7C7FBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B800D233-B508-41D0-A84B-E5C5ED7C7FBF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EBAEE0B6-54FC-4872-BC54-75A5F549DDFE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EBAEE0B6-54FC-4872-BC54-75A5F549DDFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EBAEE0B6-54FC-4872-BC54-75A5F549DDFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EBAEE0B6-54FC-4872-BC54-75A5F549DDFE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{EBAEE0B6-54FC-4872-BC54-75A5F549DDFE} = {A0AEE4C6-78BA-4DB9-A317-7A5896C59950}
 	EndGlobalSection
 EndGlobal
