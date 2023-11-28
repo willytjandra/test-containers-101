@@ -32,6 +32,10 @@ app.MapPost("/users", PostAsync)
     .WithName("CreateUser")
     .WithOpenApi();
 
+app.MapDelete("/users/{id:guid}", DeleteAsync)
+    .WithName("DeleteUser")
+    .WithOpenApi();
+
 app.Run();
 
 static async Task<Results<Ok<User>, NotFound>> GetAsync(
@@ -61,6 +65,18 @@ static async Task<Results<Ok<User>, ProblemHttpResult>> PostAsync(
     await dbContext.SaveChangesAsync(cancellationToken);
 
     return TypedResults.Ok(user);
+}
+
+static async Task<NoContent> DeleteAsync(
+    Guid id,
+    ApplicationDbContext dbContext,
+    CancellationToken cancellationToken)
+{
+    await dbContext.Users
+        .Where(u => u.Id == id)
+        .ExecuteDeleteAsync(cancellationToken);
+
+    return TypedResults.NoContent();
 }
 
 record UserDto(string FirstName, string LastName, string Email);
