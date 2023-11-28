@@ -24,13 +24,30 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.MapGet("/hello", () => "Hello, world!")
-    .WithName("Hello")
+app.MapGet("/users/{id:guid}", GetAsync)
+    .WithName("GetUser")
     .WithOpenApi();
 
-app.MapPost("/users", PostAsync);
+app.MapPost("/users", PostAsync)
+    .WithName("CreateUser")
+    .WithOpenApi();
 
 app.Run();
+
+static async Task<Results<Ok<User>, NotFound>> GetAsync(
+    Guid id,
+    ApplicationDbContext dbContext,
+    CancellationToken cancellationToken)
+{
+    var user = await dbContext.Users.FindAsync(id, cancellationToken);
+
+    if (user is null)
+    {
+        return TypedResults.NotFound();
+    }
+
+    return TypedResults.Ok(user);
+}
 
 static async Task<Results<Ok<User>, ProblemHttpResult>> PostAsync(
     UserDto userDto,
