@@ -1,7 +1,10 @@
-﻿namespace Api.Domain;
+﻿using System.Text.Json.Serialization;
+
+namespace Api.Domain;
 
 public class User
 {
+    [JsonConstructor]
     private User() { }
 
     public Guid Id { get; private set; }
