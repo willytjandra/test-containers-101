@@ -1,29 +1,29 @@
 ﻿using System.Net;
 using System.Net.Http.Json;
 using Api.Domain;
-using Api.Infrastructure;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 
-namespace Api.IntegrationTests;
+namespace Api.IntegrationTests.UsersTests;
 
-public class CreateEndpointSpecification
+public class CreateUserTests : BaseIntegrationTest
 {
+    public CreateUserTests(IntegrationTestApiFactory factory) : base(factory)
+    {
+    }
+
     [Fact]
     public async Task Should_return_201_Created_When_send_create_user_request()
     {
         // Arrange
-        var factory = new IntegrationTestApiFactory();
-
-        using var client = factory.CreateClient();
-
-        // Act
-        var response = await client.PostAsJsonAsync($"/users", new
+        var newUserRequest = new
         {
             FirstName = "John",
             LastName = "Doe",
             Email = "john.doe@mail.com"
-        });
+        };
+
+        // Act
+        var response = await Client.PostAsJsonAsync($"/users", newUserRequest);
 
         // Assert
         Assert.Equal(HttpStatusCode.Created, response.StatusCode);
@@ -33,17 +33,15 @@ public class CreateEndpointSpecification
     public async Task Should_contain_location_header_When_send_create_user_request()
     {
         // Arrange
-        var factory = new IntegrationTestApiFactory();
-
-        using var client = factory.CreateClient();
-
-        // Act
-        var response = await client.PostAsJsonAsync($"/users", new
+        var newUserRequest = new
         {
             FirstName = "John",
             LastName = "Doe",
             Email = "john.doe@mail.com"
-        });
+        };
+
+        // Act
+        var response = await Client.PostAsJsonAsync($"/users", newUserRequest);
 
         // Assert
         Assert.NotNull(response.Headers.Location);
@@ -53,17 +51,15 @@ public class CreateEndpointSpecification
     public async Task Should_contain_location_header_to_created_resource_When_send_create_user_request()
     {
         // Arrange
-        var factory = new IntegrationTestApiFactory();
-
-        using var client = factory.CreateClient();
-
-        // Act
-        var response = await client.PostAsJsonAsync($"/users", new
+        var newUserRequest = new
         {
             FirstName = "John",
             LastName = "Doe",
             Email = "john.doe@mail.com"
-        });
+        };
+
+        // Act
+        var response = await Client.PostAsJsonAsync($"/users", newUserRequest);
 
         var createdResource = await response.Content.ReadFromJsonAsync<User>();
 
@@ -75,15 +71,15 @@ public class CreateEndpointSpecification
     public async Task Should_add_user_to_database_When_send_create_user_request()
     {
         // Arrange
-        var factory = new IntegrationTestApiFactory();
-
-        using var scope = factory.Services.CreateScope();
-        var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-
-        using var client = factory.CreateClient();
+        var newUserRequest = new
+        {
+            FirstName = "John",
+            LastName = "Doe",
+            Email = "john.doe@mail.com"
+        };
 
         // Act
-        var response = await client.PostAsJsonAsync($"/users", new
+        var response = await Client.PostAsJsonAsync($"/users", new
         {
             FirstName = "John",
             LastName = "Doe",
@@ -91,8 +87,7 @@ public class CreateEndpointSpecification
         });
 
         // Assert
-        var list = await dbContext.Users.ToListAsync();
-        var dbEntry = await dbContext.Users.FirstOrDefaultAsync(u => u.Email == "john.doe@mail.com");
+        var dbEntry = await DbContext.Users.FirstOrDefaultAsync(u => u.Email == "john.doe@mail.com");
         Assert.NotNull(dbEntry);
     }
 }
