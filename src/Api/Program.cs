@@ -53,7 +53,7 @@ static async Task<Results<Ok<User>, NotFound>> GetAsync(
     return TypedResults.Ok(user);
 }
 
-static async Task<Results<Ok<User>, ProblemHttpResult>> PostAsync(
+static async Task<Results<Created<User>, ProblemHttpResult>> PostAsync(
     UserDto userDto,
     ApplicationDbContext dbContext,
     CancellationToken cancellationToken)
@@ -64,7 +64,7 @@ static async Task<Results<Ok<User>, ProblemHttpResult>> PostAsync(
 
     await dbContext.SaveChangesAsync(cancellationToken);
 
-    return TypedResults.Ok(user);
+    return TypedResults.Created($"users/{user.Id}", user);
 }
 
 static async Task<NoContent> DeleteAsync(
