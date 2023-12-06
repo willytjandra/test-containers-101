@@ -14,7 +14,7 @@ public class GetUserTests : BaseIntegrationTest
     public async Task Should_return_200_OK_When_user_exist()
     {
         // Arrange
-        var user = User.Create("John", "Doe", "john.doe@email.com");
+        var user = User.Create("John", "Doe", "john.doe@email1.com");
         DbContext.Add(user);
 
         await DbContext.SaveChangesAsync();
@@ -30,7 +30,7 @@ public class GetUserTests : BaseIntegrationTest
     public async Task Should_return_a_user_When_user_exist()
     {
         // Arrange
-        var user = User.Create("John", "Doe", "john.doe@email.com");
+        var user = User.Create("John", "Doe", "john.doe@email2.com");
         DbContext.Add(user);
 
         await DbContext.SaveChangesAsync();

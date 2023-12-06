@@ -19,7 +19,7 @@ public class CreateUserTests : BaseIntegrationTest
         {
             FirstName = "John",
             LastName = "Doe",
-            Email = "john.doe@mail.com"
+            Email = "john.doe@mail1.com"
         };
 
         // Act
@@ -75,7 +75,7 @@ public class CreateUserTests : BaseIntegrationTest
         {
             FirstName = "John",
             LastName = "Doe",
-            Email = "john.doe@mail.com"
+            Email = "john.doe@mail2.com"
         };
 
         // Act
@@ -83,11 +83,11 @@ public class CreateUserTests : BaseIntegrationTest
         {
             FirstName = "John",
             LastName = "Doe",
-            Email = "john.doe@mail.com"
+            Email = "john.doe@mail3.com"
         });
 
         // Assert
-        var dbEntry = await DbContext.Users.FirstOrDefaultAsync(u => u.Email == "john.doe@mail.com");
+        var dbEntry = await DbContext.Users.FirstOrDefaultAsync(u => u.Email == "john.doe@mail3.com");
         Assert.NotNull(dbEntry);
     }
 }
