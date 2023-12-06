@@ -55,7 +55,7 @@ public class CreateUserTests : BaseIntegrationTest
         {
             FirstName = "John",
             LastName = "Doe",
-            Email = "john.doe@mail.com"
+            Email = "john.doe@mail3.com"
         };
 
         // Act
@@ -79,15 +79,10 @@ public class CreateUserTests : BaseIntegrationTest
         };
 
         // Act
-        var response = await Client.PostAsJsonAsync($"/users", new
-        {
-            FirstName = "John",
-            LastName = "Doe",
-            Email = "john.doe@mail3.com"
-        });
+        var response = await Client.PostAsJsonAsync($"/users", newUserRequest);
 
         // Assert
-        var dbEntry = await DbContext.Users.FirstOrDefaultAsync(u => u.Email == "john.doe@mail3.com");
+        var dbEntry = await DbContext.Users.FirstOrDefaultAsync(u => u.Email == "john.doe@mail2.com");
         Assert.NotNull(dbEntry);
     }
 }
