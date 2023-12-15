@@ -1,15 +1,15 @@
-  name: Build & Tests
+name: Build & Tests
 
-  on:
-    push:
-      branches:
-        - main
-    pull_request:
-      branches:
-        - main
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
 
 env:
-  DOTNET_VERSION: '8.0.x'
+  DOTNET_VERSION: "8.0.x"
 
 jobs:
   build:
